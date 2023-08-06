@@ -7,5 +7,5 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  extends: ["eslint:recommended", "turbo", "prettier"],
+  extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended", "turbo", "prettier"],
 };
