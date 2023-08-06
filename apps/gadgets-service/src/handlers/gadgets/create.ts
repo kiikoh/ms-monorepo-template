@@ -6,6 +6,9 @@ export const createGadget: ServerInferHandler<
 > = async ({ body }) => {
   const gadget = { id: "1", ...body };
 
+  // simulate a db call
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
   if (gadget.title === "bad") {
     return {
       status: 400,

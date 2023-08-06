@@ -6,6 +6,9 @@ export const getWidget: ServerInferHandler<typeof contract.getWidget> = async ({
 }) => {
   const widget = { id, title: `Hello ${id}`, body: "World" };
 
+  // simulate a db call
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
   return {
     status: 200,
     body: widget ?? null,
