@@ -13,11 +13,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "gadgets-service": "workspace:*",
     "@ts-rest/core": "^3.26.4",
     "@ts-rest/express": "^3.26.4",
     "@ts-rest/open-api": "^3.26.4",
     "express": "^4.18.2",
+    "gadgets-client": "workspace:*",
     "zod": "^3.21.4"
   },
   "devDependencies": {

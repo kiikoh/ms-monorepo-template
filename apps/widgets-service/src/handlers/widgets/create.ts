@@ -1,6 +1,6 @@
 import { contract } from "../../contract";
 import { ServerInferHandler } from "../../helpers/infer-handler";
-import { gadgetsClient } from "gadgets-service";
+import { gadgetsClient } from "gadgets-client";
 
 export const createWidget: ServerInferHandler<
   typeof contract.createWidget
@@ -10,7 +10,10 @@ export const createWidget: ServerInferHandler<
   const data = await gadgetsClient.createGadget({ body: widget });
 
   if (data.status === 400) {
-    throw new Error(data.body.message);
+    return {
+      status: 400,
+      body: data.body,
+    };
   }
 
   console.log("Gadgets called successfully from widgets", data.body);

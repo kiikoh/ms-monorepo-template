@@ -16,6 +16,9 @@ importers:
       prettier:
         specifier: ^2.5.1
         version: 2.8.8
+      tsconfig:
+        specifier: workspace:*
+        version: link:packages/tsconfig
       turbo:
         specifier: latest
         version: 1.10.12
@@ -74,9 +77,9 @@ importers:
       express:
         specifier: ^4.18.2
         version: 4.18.2
-      gadgets-service:
+      gadgets-client:
         specifier: workspace:*
-        version: link:../gadgets-service
+        version: link:../../packages/gadgets-client
       zod:
         specifier: ^3.21.4
         version: 3.21.4
@@ -118,6 +121,21 @@ importers:
       '@typescript-eslint/parser':
         specifier: ^6.2.1
         version: 6.2.1(eslint@7.32.0)(typescript@5.1.6)
+
+  packages/gadgets-client:
+    dependencies:
+      '@ts-rest/core':
+        specifier: ^3.26.4
+        version: 3.26.4(zod@3.21.4)
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../eslint-config-custom
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+      zod:
+        specifier: ^3.21.4
+        version: 3.21.4
 
   packages/tsconfig: {}
 
