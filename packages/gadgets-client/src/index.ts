@@ -9,7 +9,7 @@ const GadgetSchema = z.object({
   body: z.string(),
 });
 
-export const contract = c.router(
+export const gadgetsApi = c.router(
   {
     createGadget: {
       method: "POST",
@@ -41,5 +41,3 @@ export const contract = c.router(
     strictStatusCodes: true,
   }
 );
-
-export { gadgetsClient } from "./client";

@@ -1,15 +1,15 @@
-import { initContract } from "@ts-rest/core";
+import { initClient, initContract } from "@ts-rest/core";
 import { z } from "zod";
 
 const c = initContract();
 
-const PostSchema = z.object({
+const WidgetsSchema = z.object({
   id: z.string(),
   title: z.string(),
   body: z.string(),
 });
 
-export const contract = c.router(
+export const widgetsApi = c.router(
   {
     createWidget: {
       method: "POST",
@@ -17,7 +17,7 @@ export const contract = c.router(
       summary: "Create a widget",
       description: "Create a widget",
       responses: {
-        201: PostSchema,
+        201: WidgetsSchema,
         400: z.object({
           message: z.string(),
         }),
@@ -33,7 +33,7 @@ export const contract = c.router(
       summary: "Create a widget",
       description: "Get a widget by id",
       responses: {
-        200: PostSchema.nullable(),
+        200: WidgetsSchema.nullable(),
       },
     },
   },
@@ -41,3 +41,9 @@ export const contract = c.router(
     strictStatusCodes: true,
   }
 );
+
+export const widgetsClient = initClient(widgetsApi, {
+  baseUrl: "http://localhost:3000",
+  baseHeaders: {},
+  jsonQuery: true,
+});

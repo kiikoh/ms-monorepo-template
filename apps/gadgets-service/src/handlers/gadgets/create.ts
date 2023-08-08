@@ -1,8 +1,8 @@
-import { contract } from "../../contract";
+import { gadgetsApi } from "gadgets-client";
 import { ServerInferHandler } from "../../helpers/infer-handler";
 
 export const createGadget: ServerInferHandler<
-  typeof contract.createGadget
+  typeof gadgetsApi.createGadget
 > = async ({ body }) => {
   const gadget = { id: "1", ...body };
 

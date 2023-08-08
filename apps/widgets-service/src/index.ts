@@ -1,5 +1,5 @@
 import express from "express";
-import { contract } from "./contract";
+import { widgetsApi } from "widgets-client";
 import { createExpressEndpoints, initServer } from "@ts-rest/express";
 import { generateOpenApi } from "@ts-rest/open-api";
 import { getWidget, createWidget } from "./handlers/widgets/";
@@ -11,24 +11,28 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // Set up Swagger UI
-const openApiDocument = generateOpenApi(contract, {
-  info: {
-    title: "My Widgets API",
-    version: "1.0.0",
-    description: "Manange your widgets",
+const openApiDocument = generateOpenApi(
+  widgetsApi,
+  {
+    info: {
+      title: "My Widgets API",
+      version: "1.0.0",
+      description: "Manange your widgets",
+    },
   },
-});
+  { jsonQuery: true }
+);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openApiDocument));
 
 // Handle requests
 const s = initServer();
-const router = s.router(contract, {
+const router = s.router(widgetsApi, {
   getWidget,
   createWidget,
 });
 
 // Mount the routes
-createExpressEndpoints(contract, router, app);
+createExpressEndpoints(widgetsApi, router, app, { jsonQuery: true });
 
 // Serve the contract
 const server = app.listen(3000, () => {

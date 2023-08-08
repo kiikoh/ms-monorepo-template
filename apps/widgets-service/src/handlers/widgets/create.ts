@@ -1,22 +1,40 @@
-import { contract } from "../../contract";
+// import { gadgetsApi } from "gadgets-client";
+import { widgetsApi } from "widgets-client";
 import { ServerInferHandler } from "../../helpers/infer-handler";
-import { gadgetsClient } from "gadgets-client";
+// import { initClient } from "@ts-rest/core";
+
+// const gadgetsClient = initClient(gadgetsApi, {
+//   baseUrl: "http://localhost:3001",
+//   baseHeaders: {},
+//   jsonQuery: true,
+// });
 
 export const createWidget: ServerInferHandler<
-  typeof contract.createWidget
+  typeof widgetsApi.createWidget
 > = async ({ body }) => {
   const widget = { id: "1", ...body };
 
-  const data = await gadgetsClient.createGadget({ body: widget });
+  // simulate a db call
+  await new Promise((resolve) => setTimeout(resolve, 500));
+  // const data = await gadgetsClient.createGadget({ body: widget });
 
-  if (data.status === 400) {
+  // if (data.status === 400) {
+  //   return {
+  //     status: 400,
+  //     body: data.body,
+  //   };
+  // }
+
+  if (widget.title === "bad") {
     return {
       status: 400,
-      body: data.body,
+      body: {
+        message: "Title cannot be 'bad'",
+      },
     };
   }
 
-  console.log("Gadgets called successfully from widgets", data.body);
+  // console.log("Gadgets called successfully from widgets", data.body);
 
   return {
     status: 201,
