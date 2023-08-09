@@ -23,7 +23,7 @@ export const gadgetsApi = c.router(
         }),
       },
       body: z.object({
-        title: z.string(),
+        title: z.string().min(3),
         body: z.string(),
       }),
     },

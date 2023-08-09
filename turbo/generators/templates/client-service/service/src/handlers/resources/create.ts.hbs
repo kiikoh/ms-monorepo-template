@@ -1,0 +1,25 @@
+import { {{ camelCase resourceName }}sApi } from "{{ kebabCase resourceName }}s-client";
+import { ServerInferHandler } from "../../helpers/infer-handler";
+
+export const create{{ pascalCase resourceName }}: ServerInferHandler<
+  typeof {{ camelCase resourceName }}sApi.create{{ pascalCase resourceName }}
+> = async ({ body }) => {
+  const {{ camelCase resourceName }} = { id: "1", ...body };
+
+  // simulate a db call
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
+  if ({{ camelCase resourceName }}.title === "bad") {
+    return {
+      status: 400,
+      body: {
+        message: "Title cannot be 'bad'",
+      },
+    };
+  }
+
+  return {
+    status: 201,
+    body: {{ camelCase resourceName }},
+  };
+};

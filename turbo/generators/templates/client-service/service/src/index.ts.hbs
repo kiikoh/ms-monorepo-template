@@ -1,0 +1,42 @@
+import express from "express";
+import { {{ camelCase resourceName }}sApi } from "{{ kebabCase resourceName }}s-client";
+import { createExpressEndpoints, initServer } from "@ts-rest/express";
+import { generateOpenApi } from "@ts-rest/open-api";
+import { get{{ pascalCase resourceName }}, create{{ pascalCase resourceName }} } from "./handlers/{{ camelCase resourceName }}s";
+import * as swaggerUi from "swagger-ui-express";
+import { AppRouter } from "@ts-rest/core";
+
+// Set up express
+const app = express();
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+// Set up Swagger UI
+const openApiDocument = generateOpenApi(
+  {{ camelCase resourceName }}sApi as AppRouter,
+  {
+    info: {
+      title: "{{ titleCase resourceName }}s API",
+      version: "1.0.0",
+      description: "Manange your {{ lowerCase resourceName }}s",
+    },
+  },
+  { jsonQuery: true }
+);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openApiDocument));
+
+// Handle requests
+const s = initServer();
+const router = s.router({{ camelCase resourceName }}sApi, {
+  create{{ pascalCase resourceName }},
+  get{{ pascalCase resourceName }},
+});
+
+// Mount the routes
+createExpressEndpoints({{ camelCase resourceName }}sApi, router, app, { jsonQuery: true });
+
+// Serve the contract
+const server = app.listen({{ portNumber }}, () => {
+  console.log(`Listening at http://localhost:${{{ portNumber }}}`);
+});
+server.on("error", console.error);

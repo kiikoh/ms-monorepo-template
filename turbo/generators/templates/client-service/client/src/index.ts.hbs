@@ -1,0 +1,49 @@
+import { initClient, initContract } from "@ts-rest/core";
+import { z } from "zod";
+
+const c = initContract();
+
+const {{ pascalCase resourceName }}Schema = z.object({
+  id: z.string(),
+  title: z.string(),
+  body: z.string(),
+});
+
+export const {{ camelCase resourceName }}sApi = c.router(
+  {
+    create{{ pascalCase resourceName }}: {
+      method: "POST",
+      path: "/{{ camelCase resourceName }}s",
+      summary: "Create a {{ lowerCase resourceName }}",
+      description: "Create a {{ lowerCase resourceName }}",
+      responses: {
+        201: {{ pascalCase resourceName }}Schema,
+        400: z.object({
+          message: z.string(),
+        }),
+      },
+      body: z.object({
+        title: z.string().min(3),
+        body: z.string(),
+      }),
+    },
+    get{{ pascalCase resourceName }}: {
+      method: "GET",
+      path: `/{{ camelCase resourceName }}s/:id`,
+      summary: "Create a {{ lowerCase resourceName }}",
+      description: "Get a {{ lowerCase resourceName }} by id",
+      responses: {
+        200: {{ pascalCase resourceName }}Schema.nullable(),
+      },
+    },
+  },
+  {
+    strictStatusCodes: true,
+  }
+);
+
+export const {{ camelCase resourceName }}sClient = initClient({{ camelCase resourceName }}sApi, {
+  baseUrl: "http://localhost:{{ portNumber }}",
+  baseHeaders: {},
+  jsonQuery: true,
+});
