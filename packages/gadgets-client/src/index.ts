@@ -1,4 +1,4 @@
-import { initContract } from "@ts-rest/core";
+import { initClient, initContract } from "@ts-rest/core";
 import { z } from "zod";
 
 const c = initContract();
@@ -41,3 +41,9 @@ export const gadgetsApi = c.router(
     strictStatusCodes: true,
   }
 );
+
+export const gadgetsClient = initClient(gadgetsApi, {
+  baseUrl: "http://localhost:3001",
+  baseHeaders: {},
+  jsonQuery: true,
+});

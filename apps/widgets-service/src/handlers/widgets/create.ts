@@ -1,13 +1,5 @@
-// import { gadgetsApi } from "gadgets-client";
 import { widgetsApi } from "widgets-client";
 import { ServerInferHandler } from "../../helpers/infer-handler";
-// import { initClient } from "@ts-rest/core";
-
-// const gadgetsClient = initClient(gadgetsApi, {
-//   baseUrl: "http://localhost:3001",
-//   baseHeaders: {},
-//   jsonQuery: true,
-// });
 
 export const createWidget: ServerInferHandler<
   typeof widgetsApi.createWidget
@@ -16,14 +8,6 @@ export const createWidget: ServerInferHandler<
 
   // simulate a db call
   await new Promise((resolve) => setTimeout(resolve, 500));
-  // const data = await gadgetsClient.createGadget({ body: widget });
-
-  // if (data.status === 400) {
-  //   return {
-  //     status: 400,
-  //     body: data.body,
-  //   };
-  // }
 
   if (widget.title === "bad") {
     return {
